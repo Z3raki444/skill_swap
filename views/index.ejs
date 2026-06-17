@@ -1,0 +1,60 @@
+<% if (typeof pageNotFound !== 'undefined' && pageNotFound) { %>
+  <section class="card text-center">
+    <h1>Page not found</h1>
+    <p>The page you requested does not exist. Please use the navigation menu.</p>
+    <a class="btn btn-primary" href="/">Go Home</a>
+  </section>
+<% } else { %>
+  <section class="hero">
+    <div class="hero-text">
+      <span class="eyebrow">Student-to-student learning</span>
+      <h1>Exchange skills without paying for tutoring.</h1>
+      <p>
+        SkillSwap helps students teach what they know and learn what they need.
+        Offer Python, German, Excel, CV writing, presentation design, mathematics, and more.
+      </p>
+      <div class="hero-actions">
+        <% if (currentUser) { %>
+          <a class="btn btn-primary" href="/skills">Browse Skills</a>
+          <a class="btn btn-secondary" href="/skills/add">Offer a Skill</a>
+        <% } else { %>
+          <a class="btn btn-primary" href="/register">Create Free Account</a>
+          <a class="btn btn-secondary" href="/login">Login</a>
+        <% } %>
+      </div>
+    </div>
+    <div class="hero-panel">
+      <h2>How it works</h2>
+      <ol class="steps">
+        <li>Create your student profile.</li>
+        <li>List skills you can teach.</li>
+        <li>Find skills you want to learn.</li>
+        <li>Send a swap request and learn together.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section-header">
+    <div>
+      <h2>Featured Skills</h2>
+      <p>Explore real skills offered by student members.</p>
+    </div>
+  </section>
+
+  <div class="grid cards-grid">
+    <% if (featuredSkills.length === 0) { %>
+      <p>No skills available yet.</p>
+    <% } %>
+    <% featuredSkills.forEach(skill => { %>
+      <article class="card skill-card">
+        <span class="badge"><%= skill.category %></span>
+        <h3><%= skill.title %></h3>
+        <p><%= skill.description %></p>
+        <p class="muted">Teacher: <strong><%= skill.teacher_name %></strong></p>
+        <% if (currentUser) { %>
+          <a class="btn btn-small" href="/skills/<%= skill.id %>">View Skill</a>
+        <% } %>
+      </article>
+    <% }) %>
+  </div>
+<% } %>

@@ -1,0 +1,34 @@
+<section class="auth-wrapper wide">
+  <div class="card auth-card wide-card">
+    <h1><%= mode === 'edit' ? 'Edit Skill' : 'Add Skill' %></h1>
+    <p class="muted">Describe a useful skill you can teach to another student.</p>
+    <form method="POST" action="<%= mode === 'edit' ? '/skills/' + skill.id + '/edit' : '/skills/add' %>" class="form">
+      <label>Skill Title
+        <input type="text" name="title" value="<%= skill.title || '' %>" placeholder="Python Basics for Beginners" required>
+      </label>
+      <label>Category
+        <select name="category" required>
+          <option value="">Select category</option>
+          <% categories.forEach(cat => { %>
+            <option value="<%= cat %>" <%= skill.category === cat ? 'selected' : '' %>><%= cat %></option>
+          <% }) %>
+        </select>
+      </label>
+      <label>Description
+        <textarea name="description" rows="5" placeholder="Explain what you can teach and what the student will learn." required><%= skill.description || '' %></textarea>
+      </label>
+      <label>Skill Level
+        <select name="level" required>
+          <option value="">Select level</option>
+          <% levels.forEach(level => { %>
+            <option value="<%= level %>" <%= skill.level === level ? 'selected' : '' %>><%= level %></option>
+          <% }) %>
+        </select>
+      </label>
+      <label>Availability
+        <input type="text" name="availability" value="<%= skill.availability || '' %>" placeholder="Saturday evening">
+      </label>
+      <button class="btn btn-primary" type="submit"><%= mode === 'edit' ? 'Save Changes' : 'Add Skill' %></button>
+    </form>
+  </div>
+</section>

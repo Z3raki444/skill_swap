@@ -1,0 +1,33 @@
+{
+  "name": "skillswap",
+  "version": "1.0.0",
+  "description": "SkillSwap: A web-based peer-to-peer skill exchange platform for students.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "init-db": "node db/init.js",
+    "seed": "node db/seed.js",
+    "reset-db": "node db/seed.js --reset"
+  },
+  "keywords": [
+    "skillswap",
+    "student",
+    "peer-learning",
+    "express",
+    "sqlite"
+  ],
+  "author": "Praveenkumar Muthukumar",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "express-ejs-layouts": "^2.5.1",
+    "express-session": "^1.18.0",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}

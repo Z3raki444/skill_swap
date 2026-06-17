@@ -1,0 +1,47 @@
+<section class="section-header">
+  <div>
+    <h1>Browse Skills</h1>
+    <p>Find students who can teach the skills you want to learn.</p>
+  </div>
+  <a class="btn btn-primary" href="/skills/add">Offer a Skill</a>
+</section>
+
+<section class="card filter-card">
+  <form method="GET" action="/skills" class="filter-form">
+    <label>Search
+      <input type="text" name="q" value="<%= q || '' %>" placeholder="Python, German, CV, Excel">
+    </label>
+    <label>Category
+      <select name="category">
+        <option value="">All Categories</option>
+        <% categories.forEach(cat => { %>
+          <option value="<%= cat %>" <%= category === cat ? 'selected' : '' %>><%= cat %></option>
+        <% }) %>
+      </select>
+    </label>
+    <button class="btn btn-primary" type="submit">Search</button>
+    <a class="btn btn-secondary" href="/skills">Reset</a>
+  </form>
+</section>
+
+<div class="grid cards-grid">
+  <% if (skills.length === 0) { %>
+    <section class="card">
+      <h2>No skills found</h2>
+      <p>Try another keyword or category.</p>
+    </section>
+  <% } %>
+  <% skills.forEach(skill => { %>
+    <article class="card skill-card">
+      <span class="badge"><%= skill.category %></span>
+      <h2><%= skill.title %></h2>
+      <p><%= skill.description %></p>
+      <div class="skill-meta">
+        <span>Teacher: <strong><%= skill.teacher_name %></strong></span>
+        <span>Level: <strong><%= skill.level %></strong></span>
+        <span>Availability: <strong><%= skill.availability %></strong></span>
+      </div>
+      <a class="btn btn-small" href="/skills/<%= skill.id %>">View Details</a>
+    </article>
+  <% }) %>
+</div>

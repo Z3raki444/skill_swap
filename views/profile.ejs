@@ -1,0 +1,74 @@
+<section class="section-header">
+  <div>
+    <h1>My Profile</h1>
+    <p>Update your student profile and manage the skills you offer.</p>
+  </div>
+</section>
+
+<div class="two-column">
+  <section class="card">
+    <h2>Profile Details</h2>
+    <form method="POST" action="/profile" class="form">
+      <label>Name
+        <input type="text" name="name" value="<%= user.name || '' %>" required>
+      </label>
+      <label>Email
+        <input type="email" value="<%= user.email || '' %>" disabled>
+      </label>
+      <label>Course / Program
+        <input type="text" name="course" value="<%= user.course || '' %>">
+      </label>
+      <label>Bio
+        <textarea name="bio" rows="4"><%= user.bio || '' %></textarea>
+      </label>
+      <label>Skills Wanted
+        <textarea name="skills_wanted" rows="3" placeholder="German speaking practice, Excel, interview preparation"><%= user.skills_wanted || '' %></textarea>
+      </label>
+      <label>Availability
+        <input type="text" name="availability" value="<%= user.availability || '' %>" placeholder="Weekdays after 18:00">
+      </label>
+      <button class="btn btn-primary" type="submit">Update Profile</button>
+    </form>
+  </section>
+
+  <section class="card">
+    <div class="card-header-row">
+      <h2>My Skills</h2>
+      <a class="btn btn-small" href="/skills/add">Add Skill</a>
+    </div>
+    <% if (mySkills.length === 0) { %>
+      <p class="muted">You have not added any skills yet.</p>
+    <% } %>
+    <% mySkills.forEach(skill => { %>
+      <div class="mini-card">
+        <span class="badge"><%= skill.category %></span>
+        <h3><%= skill.title %></h3>
+        <p><%= skill.description %></p>
+        <p class="muted"><%= skill.level %> | <%= skill.availability %></p>
+        <div class="button-row compact">
+          <a class="btn btn-small" href="/skills/<%= skill.id %>">View</a>
+          <a class="btn btn-small btn-secondary" href="/skills/<%= skill.id %>/edit">Edit</a>
+          <form method="POST" action="/skills/<%= skill.id %>/delete" onsubmit="return confirm('Delete this skill? Related requests will also be removed.');">
+            <button class="btn btn-small btn-danger" type="submit">Delete</button>
+          </form>
+        </div>
+      </div>
+    <% }) %>
+  </section>
+</div>
+
+<section class="card">
+  <h2>Reviews Received</h2>
+  <% if (reviews.length === 0) { %>
+    <p class="muted">No reviews received yet.</p>
+  <% } %>
+  <div class="grid cards-grid">
+    <% reviews.forEach(review => { %>
+      <article class="review-card">
+        <p class="rating"><%= '★'.repeat(review.rating) %><%= '☆'.repeat(5 - review.rating) %></p>
+        <p><%= review.comment %></p>
+        <p class="muted">By <%= review.reviewer_name %></p>
+      </article>
+    <% }) %>
+  </div>
+</section>

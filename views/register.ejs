@@ -1,0 +1,25 @@
+<section class="auth-wrapper">
+  <div class="card auth-card">
+    <h1>Create Account</h1>
+    <p class="muted">Join SkillSwap and start exchanging skills with other students.</p>
+    <form method="POST" action="/register" class="form">
+      <label>Name
+        <input type="text" name="name" value="<%= form.name || '' %>" required>
+      </label>
+      <label>Email
+        <input type="email" name="email" value="<%= form.email || '' %>" required>
+      </label>
+      <label>Password
+        <input type="password" name="password" minlength="6" required>
+      </label>
+      <label>Course / Program
+        <input type="text" name="course" value="<%= form.course || '' %>" placeholder="MSc Computer Science">
+      </label>
+      <label>Short Bio
+        <textarea name="bio" rows="4" placeholder="Write a short introduction"><%= form.bio || '' %></textarea>
+      </label>
+      <button class="btn btn-primary full-width" type="submit">Register</button>
+    </form>
+    <p class="auth-note">Already registered? <a href="/login">Login here</a></p>
+  </div>
+</section>

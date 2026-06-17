@@ -1,0 +1,92 @@
+<section class="section-header">
+  <div>
+    <h1>My Requests</h1>
+    <p>Manage the swap requests you sent and received.</p>
+  </div>
+</section>
+
+<section class="card">
+  <h2>Received Requests</h2>
+  <% if (receivedRequests.length === 0) { %>
+    <p class="muted">You have not received any requests yet.</p>
+  <% } %>
+  <% receivedRequests.forEach(request => { %>
+    <article class="request-card">
+      <div>
+        <h3><%= request.skill_title %></h3>
+        <p><strong>From:</strong> <%= request.sender_name %> (<%= request.sender_email %>)</p>
+        <p><strong>Message:</strong> <%= request.message %></p>
+        <p><strong>Offered skill:</strong> <%= request.offered_skill %></p>
+        <span class="status status-<%= request.status.toLowerCase() %>"><%= request.status %></span>
+      </div>
+      <div class="request-actions">
+        <% if (request.status === 'Pending') { %>
+          <form method="POST" action="/requests/<%= request.id %>/accept">
+            <button class="btn btn-small" type="submit">Accept</button>
+          </form>
+          <form method="POST" action="/requests/<%= request.id %>/reject">
+            <button class="btn btn-small btn-danger" type="submit">Reject</button>
+          </form>
+        <% } %>
+        <% if (request.status === 'Accepted') { %>
+          <form method="POST" action="/requests/<%= request.id %>/complete">
+            <button class="btn btn-small" type="submit">Mark Completed</button>
+          </form>
+        <% } %>
+        <% if (request.status === 'Completed' && !reviewedRequestIds.includes(request.id)) { %>
+          <form method="POST" action="/requests/<%= request.id %>/review" class="review-form">
+            <select name="rating" required>
+              <option value="">Rating</option>
+              <option value="5">5 - Excellent</option>
+              <option value="4">4 - Good</option>
+              <option value="3">3 - Average</option>
+              <option value="2">2 - Poor</option>
+              <option value="1">1 - Very Poor</option>
+            </select>
+            <input type="text" name="comment" placeholder="Write short feedback" required>
+            <button class="btn btn-small" type="submit">Review</button>
+          </form>
+        <% } %>
+      </div>
+    </article>
+  <% }) %>
+</section>
+
+<section class="card">
+  <h2>Sent Requests</h2>
+  <% if (sentRequests.length === 0) { %>
+    <p class="muted">You have not sent any requests yet.</p>
+  <% } %>
+  <% sentRequests.forEach(request => { %>
+    <article class="request-card">
+      <div>
+        <h3><%= request.skill_title %></h3>
+        <p><strong>To:</strong> <%= request.receiver_name %> (<%= request.receiver_email %>)</p>
+        <p><strong>Message:</strong> <%= request.message %></p>
+        <p><strong>Your offered skill:</strong> <%= request.offered_skill %></p>
+        <span class="status status-<%= request.status.toLowerCase() %>"><%= request.status %></span>
+      </div>
+      <div class="request-actions">
+        <% if (request.status === 'Accepted') { %>
+          <form method="POST" action="/requests/<%= request.id %>/complete">
+            <button class="btn btn-small" type="submit">Mark Completed</button>
+          </form>
+        <% } %>
+        <% if (request.status === 'Completed' && !reviewedRequestIds.includes(request.id)) { %>
+          <form method="POST" action="/requests/<%= request.id %>/review" class="review-form">
+            <select name="rating" required>
+              <option value="">Rating</option>
+              <option value="5">5 - Excellent</option>
+              <option value="4">4 - Good</option>
+              <option value="3">3 - Average</option>
+              <option value="2">2 - Poor</option>
+              <option value="1">1 - Very Poor</option>
+            </select>
+            <input type="text" name="comment" placeholder="Write short feedback" required>
+            <button class="btn btn-small" type="submit">Review</button>
+          </form>
+        <% } %>
+      </div>
+    </article>
+  <% }) %>
+</section>

@@ -1,0 +1,62 @@
+<section class="section-header">
+  <div>
+    <span class="badge"><%= skill.category %></span>
+    <h1><%= skill.title %></h1>
+    <p><%= skill.description %></p>
+  </div>
+</section>
+
+<div class="two-column">
+  <section class="card">
+    <h2>Skill Information</h2>
+    <p><strong>Level:</strong> <%= skill.level %></p>
+    <p><strong>Availability:</strong> <%= skill.availability %></p>
+    <p><strong>Created:</strong> <%= skill.created_at %></p>
+  </section>
+
+  <section class="card">
+    <h2>Teacher Profile</h2>
+    <p><strong>Name:</strong> <%= skill.teacher_name %></p>
+    <p><strong>Course:</strong> <%= skill.teacher_course || 'Not provided' %></p>
+    <p><strong>Bio:</strong> <%= skill.teacher_bio || 'No bio added yet.' %></p>
+    <p><strong>Wants to learn:</strong> <%= skill.teacher_skills_wanted || 'Not specified' %></p>
+    <p><strong>General availability:</strong> <%= skill.teacher_general_availability || 'Flexible' %></p>
+  </section>
+</div>
+
+<% if (skill.user_id !== currentUser.id) { %>
+  <section class="card">
+    <h2>Send Swap Request</h2>
+    <form method="POST" action="/skills/<%= skill.id %>/request" class="form">
+      <label>Your Message
+        <textarea name="message" rows="4" placeholder="Explain why you want to learn this skill." required></textarea>
+      </label>
+      <label>Skill You Can Offer in Exchange
+        <input type="text" name="offered_skill" placeholder="Example: German speaking practice, Excel basics, presentation design" required>
+      </label>
+      <button class="btn btn-primary" type="submit">Send Request</button>
+    </form>
+  </section>
+<% } else { %>
+  <section class="card">
+    <h2>This is your skill</h2>
+    <p class="muted">Other students can send you a request for this skill.</p>
+    <a class="btn btn-secondary" href="/skills/<%= skill.id %>/edit">Edit Skill</a>
+  </section>
+<% } %>
+
+<section class="card">
+  <h2>Reviews for <%= skill.teacher_name %></h2>
+  <% if (reviews.length === 0) { %>
+    <p class="muted">No reviews for this teacher yet.</p>
+  <% } %>
+  <div class="grid cards-grid">
+    <% reviews.forEach(review => { %>
+      <article class="review-card">
+        <p class="rating"><%= '★'.repeat(review.rating) %><%= '☆'.repeat(5 - review.rating) %></p>
+        <p><%= review.comment %></p>
+        <p class="muted">By <%= review.reviewer_name %></p>
+      </article>
+    <% }) %>
+  </div>
+</section>

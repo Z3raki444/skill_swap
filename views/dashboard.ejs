@@ -1,0 +1,61 @@
+<section class="section-header">
+  <div>
+    <h1>Welcome, <%= currentUser.name %></h1>
+    <p>Manage your skills, requests, and learning exchanges from one place.</p>
+  </div>
+</section>
+
+<section class="stats-grid">
+  <div class="stat-card">
+    <span><%= offeredCount %></span>
+    <p>Skills Offered</p>
+  </div>
+  <div class="stat-card">
+    <span><%= pendingCount %></span>
+    <p>Pending Received Requests</p>
+  </div>
+  <div class="stat-card">
+    <span><%= acceptedCount %></span>
+    <p>Accepted Swaps</p>
+  </div>
+</section>
+
+<section class="quick-actions card">
+  <h2>Quick Actions</h2>
+  <div class="button-row">
+    <a class="btn btn-primary" href="/skills/add">Add Skill</a>
+    <a class="btn btn-secondary" href="/skills">Browse Skills</a>
+    <a class="btn btn-secondary" href="/requests">My Requests</a>
+    <a class="btn btn-secondary" href="/profile">Profile</a>
+  </div>
+</section>
+
+<section class="card">
+  <h2>Latest Requests</h2>
+  <% if (latestRequests.length === 0) { %>
+    <p class="muted">No requests yet. Browse skills and send your first swap request.</p>
+  <% } else { %>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Skill</th>
+            <th>Sender</th>
+            <th>Receiver</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% latestRequests.forEach(request => { %>
+            <tr>
+              <td><%= request.skill_title %></td>
+              <td><%= request.sender_name %></td>
+              <td><%= request.receiver_name %></td>
+              <td><span class="status status-<%= request.status.toLowerCase() %>"><%= request.status %></span></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  <% } %>
+</section>

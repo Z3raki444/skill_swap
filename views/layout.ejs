@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title ? title + ' | SkillSwap' : 'SkillSwap' %></title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="navbar container">
+      <a class="brand" href="/">SkillSwap</a>
+      <button class="menu-toggle" type="button" aria-label="Toggle navigation">☰</button>
+      <div class="nav-links">
+        <% if (currentUser) { %>
+          <a href="/dashboard">Dashboard</a>
+          <a href="/skills">Browse Skills</a>
+          <a href="/skills/add">Add Skill</a>
+          <a href="/requests">My Requests</a>
+          <a href="/reviews">Reviews</a>
+          <a href="/profile">Profile</a>
+          <a class="btn btn-light" href="/logout">Logout</a>
+        <% } else { %>
+          <a href="/">Home</a>
+          <a href="/login">Login</a>
+          <a class="btn btn-light" href="/register">Register</a>
+        <% } %>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container main-content">
+    <% if (flash) { %>
+      <div class="alert alert-<%= flash.type %>"><%= flash.message %></div>
+    <% } %>
+    <%- body %>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <p>SkillSwap &copy; <%= new Date().getFullYear() %> | Peer-to-peer student learning platform</p>
+    </div>
+  </footer>
+  <script src="/js/main.js"></script>
+</body>
+</html>

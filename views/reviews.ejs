@@ -1,0 +1,23 @@
+<section class="section-header">
+  <div>
+    <h1>Reviews</h1>
+    <p>Read feedback from completed student skill exchanges.</p>
+  </div>
+</section>
+
+<div class="grid cards-grid">
+  <% if (reviews.length === 0) { %>
+    <section class="card">
+      <h2>No reviews yet</h2>
+      <p class="muted">Reviews will appear after completed swaps.</p>
+    </section>
+  <% } %>
+  <% reviews.forEach(review => { %>
+    <article class="card review-card">
+      <p class="rating"><%= '★'.repeat(review.rating) %><%= '☆'.repeat(5 - review.rating) %></p>
+      <p><%= review.comment %></p>
+      <p class="muted">From <strong><%= review.reviewer_name %></strong> to <strong><%= review.receiver_name %></strong></p>
+      <p class="muted"><%= review.created_at %></p>
+    </article>
+  <% }) %>
+</div>
