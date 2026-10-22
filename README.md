@@ -31,8 +31,8 @@ SkillSwap is a full-stack web application that helps students exchange skills wi
 1. Clone or download the project.
 
 ```bash
-git clone https://github.com/<your-username>/skillswap.git
-cd skillswap
+git clone https://github.com/Z3raki444/skill_swap.git
+cd skill_swap
 ```
 
 2. Install dependencies.
@@ -155,3 +155,11 @@ Add screenshots here after running the project:
 - Skill Details
 - My Requests
 - Profile
+
+## Quality checks and implementation notes
+
+A [GitHub Actions CI workflow](.github/workflows/ci.yml) installs dependencies, checks JavaScript syntax and initializes/seeds SQLite on each push and pull request.
+
+See [local verification and production limitations](docs/VERIFICATION.md). Seed passwords and the default session secret are suitable **only for local demos**, not for a public deployment.
+
+If this project has been submitted for coursework, review your university's post-submission modification rules **before merging** portfolio changes.
